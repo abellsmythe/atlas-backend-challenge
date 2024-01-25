@@ -4,13 +4,15 @@ import { initApp } from './app';
 import { initServer } from './server';
 import { terminate } from './terminate';
 
+const { PORT } = process.env;
+
 async function boot() {
   const app = initApp();
   const server = initServer(app);
 
-  app.listen(3000, '0.0.0.0', () => {
+  app.listen(PORT, '0.0.0.0', () => {
     // tslint:disable-next-line no-console
-    console.log(`Server listening on port 3000`);
+    console.log(`Server listening on port ${PORT}`);
   });
 
   // Graceful Shutdown
