@@ -9,6 +9,7 @@
   "author": "Alton Bell Smythe <abellsmythe@gmail.com>",
   "license": "ISC",
   "devDependencies": {
+    "@types/node": "20.11.6",
     "typescript": "5.3.3"
   }
 }
