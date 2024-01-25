@@ -1,3 +1,5 @@
+import 'dotenv/config';
+
 import { initApp } from './app';
 import { initServer } from './server';
 import { terminate } from './terminate';
