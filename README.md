@@ -182,3 +182,60 @@ Your database is now in sync with your schema.
 ---
 
 ## Up and running 🏃
+
+If we already have the environment ready to go, we just need to up our services
+
+```bash
+docker compose up -d
+```
+
+That would up the `database` and `app` services
+
+`✔ Container backend-challenge-database-1  Started`
+`✔ Container backend-challenge-app-1       Started`
+
+by running
+
+```bash
+docker compose ps
+```
+
+We should see the list of services and the corresponding port that is exposed 
+
+| NAME | IMAGE | COMMAND | SERVICE | CREATED | STATUS | PORTS
+|------|-------|---------|---------|---------|--------|---------
+| backend-challenge-app-1 | backend-challenge-app | "docker-entrypoint.s…" | app | About a minute ago | Up About a minute | 0.0.0.0:3000->3000/tcp, :::3000->3000/tcp
+| backend-challenge-database-1 | postgres:16 | "docker-entrypoint.s…" | database | About a minute ago | Up About a minute | 0.0.0.0:5432->5432/tcp, :::5432->5432/tcp
+
+For this case we are exposing the **port** `3000`
+
+> If you want to change the port check the `.env` file and remember to update the corresponding docker files
+
+#### Prisma Studio
+
+Now that everything is up and ready to go let's try something fun! 🥳
+by running the next command we should be able to access the Prisma database studio
+
+```bash
+docker compose exec app npm run database
+```
+
+```bash
+Environment variables loaded from .env
+Prisma schema loaded from prisma/schema.prisma
+Prisma Studio is up on http://localhost:5555
+```
+
+![Prisma Studio](./prisma-studio.png)
+
+> Keep in mind that we are also exposing the port `5555` in the docker configuration to access Prisma Studio, this shouldn't be exposed in **production**
+
+#### Apollo Explorer
+
+Now let's go and use the [Apollo Explorer](https://studio.apollographql.com/sandbox/explorer) 
+
+Once you are in the page, remember to update the Sandbox URL to your local environment, that is to say, `http://localhost:3000/graphql`
+
+You should see something similar
+
+![Apollo Explorer](./apollo-explorer.png)
