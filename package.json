@@ -10,10 +10,14 @@
     "database": "npx prisma studio",
     "database:migration": "npx prisma migrate dev",
     "database:migration:reset": "npx prisma migrate reset",
+    "database:seed": "npx prisma db seed",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "author": "Alton Bell Smythe <abellsmythe@gmail.com>",
   "license": "ISC",
+  "prisma": {
+    "seed": "ts-node prisma/seed.ts"
+  },
   "devDependencies": {
     "@types/express": "4.17.21",
     "@types/node": "20.11.6",
