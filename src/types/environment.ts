@@ -4,7 +4,7 @@ declare global {
   namespace NodeJS {
     interface ProcessEnv {
       [key: string]: string | undefined;
-      PORT: number;
+      PORT: string;
       POSTGRES_HOST: string;
       POSTGRES_DB: string;
       POSTGRES_USER: string;
