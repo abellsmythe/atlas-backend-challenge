@@ -14,6 +14,85 @@ abellsmythe@gmail.com
 
 ---
 
+## Database 
+
+![Database](./subscription-database.png)
+
+#### General jeje
+
+In general terms all the database tables will have some files
+- `id` integer pk increments
+- `created_at` datetime
+- `updated_at` datetime
+- `deleted_at` datetime
+
+#### User
+- `id` integer pk increments
+- `email` string unique
+- `first_name` string
+- `last_name` string
+- `password` string
+- `avatar` string
+- `role` enum
+
+#### Customer
+- `id` integer pk increments
+- `user_id` integer unique > fk Users.id
+
+> We have a `Customers` table just to make a difference in the billing from a regular user account, this should enable us to scale to a different billing approach, for this example is going to be 1:1, but we could potentially have billings for groups or organizations
+
+#### Plan
+- `id` integer pk increments
+- `name` string
+- `description` string
+- `price` decimal
+- `currency` enum
+- `billing_frequency` enum
+- `storage` integer
+- `support_level` enum
+- `analytics` enum
+- `integrations` enum
+- `annual_discount` integer
+
+> The `Plans` table have a lot of fields to handle the features, this is assuming all of them are really stable and we are not adding many more features, otherwise it would be better to have a json field or a different approach to store them
+
+#### Subscription
+- `id` integer pk increments
+- `customer_id` integer > fk Customers.id
+- `plan_id` integer > fk Plans.id
+- `status` enum
+- `billing_frequency` enum
+- `last_payment` date
+- `next_payment` date
+- `start_date` date
+- `end_date` date null
+
+#### Invoice
+- `id` integer pk increments
+- `customer_id` integer > fk Customers.id
+- `subscription_id` integer > fk Subscriptions.id
+- `status` string
+- `amount` decimal
+- `currency` string
+- `due_date` date
+- `billing_address` string
+- `billing_zip_code` string
+- `billing_country_code` string
+- `billing_full_name` string
+
+> Depending on the required future queries, it could be good idea to also have a `plan_id` tied to the invoice, in the case we want to query something like all the invoices from a particular plan of a customer, but I prefer to avoid that path as could introduce some data inconsistency just to avoid a join
+
+#### Payment
+- `id` integer pk increments
+- `customer_id` integer > fk Customers.id
+- `invoice_id` integer > fk Invoices.id
+- `status` enun
+- `amount` decimal
+- `currency` enum
+- `method` enum
+
+---
+
 ## Setup ⚙️
 
 Open a new terminal and run the next commands in the projcet folder
