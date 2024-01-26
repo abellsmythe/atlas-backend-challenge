@@ -154,6 +154,8 @@ You will see something similar to
 
 When you are done remember to stop/shutdown the database
 
+#### Migrations
+
 Now that our database is up and running we need to quickly setup the `app` service in order to run the migrations
 
 ```bash
@@ -178,6 +180,32 @@ Your database is now in sync with your schema.
 
 ✔ Generated Prisma Client (v5.8.1) to ./node_modules/@prisma/client in 90ms
 ```
+
+#### Seeding 🌱 
+
+Once your database is up and the `migrations` are already done, we can seed our environment, just run the next command
+
+```bash
+docker compose exec app npm run database:seed
+```
+
+you should see something similar to
+
+```
+Environment variables loaded from .env
+Running seed command `ts-node prisma/seed.ts` ...
+Loading Plans . . .
+Loading User abellsmythe@gmail.com
+Loading Subscription for customer 1
+Loading User paotoro94@gmail.com
+Loading Subscription for customer 2
+Loading User luke.bellsmythe@gmail.com
+Loading Subscription for customer 3
+
+🌱  The seed command has been executed.
+```
+
+Now if you access to the database you should have loaded 3 plans, 3 users (alton, pao and luke) with their corresponding customer and a subscription with a different plans for each one
 
 ---
 
