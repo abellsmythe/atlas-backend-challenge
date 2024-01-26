@@ -87,6 +87,8 @@ model User {
   createdAt  DateTime  @default(now())
   updatedAt  DateTime  @updatedAt
   deletedAt  DateTime?
+
+  @@index([email, deletedAt])
 }
 
 model Customer {
@@ -99,6 +101,8 @@ model Customer {
   deletedAt    DateTime?
   Invoice      Invoice?
   Payment      Payment[]
+
+  @@index([userId, deletedAt])
 }
 
 model Plan {
@@ -117,6 +121,8 @@ model Plan {
   updatedAt        DateTime         @updatedAt
   deletedAt        DateTime?
   Subscription     Subscription?
+
+  @@index([deletedAt])
 }
 
 model Subscription {
@@ -135,6 +141,8 @@ model Subscription {
   createdAt         DateTime           @default(now())
   updatedAt         DateTime           @updatedAt
   deletedAt         DateTime?
+
+  @@index([customerId, deletedAt])
 }
 
 model Invoice {
@@ -155,6 +163,8 @@ model Invoice {
   createdAt          DateTime      @default(now())
   updatedAt          DateTime      @updatedAt
   deletedAt          DateTime?
+
+  @@index([customerId, deletedAt])
 }
 
 model Payment {
@@ -170,4 +180,6 @@ model Payment {
   createdAt  DateTime      @default(now())
   updatedAt  DateTime      @updatedAt
   deletedAt  DateTime?
+
+  @@index([customerId, deletedAt])
 }
