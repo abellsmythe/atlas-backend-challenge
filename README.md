@@ -154,11 +154,30 @@ You will see something similar to
 
 When you are done remember to stop/shutdown the database
 
+Now that our database is up and running we need to quickly setup the `app` service in order to run the migrations
+
 ```bash
-docker compose stop database
+docker compose build app
+docker compose up -d app
+
+docker compose exec app npm run database:migration
 ```
 
-`✔ Container backend-challenge-database-1  Stopped`
+you should see something similar to 
+
+```
+Applying migration `20240126201343_init/`
+
+The following migration(s) have been applied:
+
+migrations/
+  └─ 20240126201343_init/
+    └─ migration.sql
+
+Your database is now in sync with your schema.
+
+✔ Generated Prisma Client (v5.8.1) to ./node_modules/@prisma/client in 90ms
+```
 
 ---
 
