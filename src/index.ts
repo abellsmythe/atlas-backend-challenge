@@ -1,6 +1,9 @@
 import 'dotenv/config';
 
+import type { ServerRegistration } from 'apollo-server-express';
+
 import { initApp } from './app';
+import { initGraphQLServer } from './graphql';
 import { initServer } from './server';
 import { terminate } from './terminate';
 
@@ -9,10 +12,19 @@ const { PORT } = process.env;
 async function boot() {
   const app = initApp();
   const server = initServer(app);
+  // I have a weird problem with `apollo-server-express` even that internally
+  // the package is using the `Application` type from `express`, looks like they
+  // have some discrepancies, I assume I have a version problem, plan to review 
+  // this one later on
+  const graphQLServer = await initGraphQLServer(
+    app as ServerRegistration['app']
+  );
 
   app.listen(Number(PORT), '0.0.0.0', () => {
-    // tslint:disable-next-line no-console
     console.log(`Server listening on port ${PORT}`);
+    console.log(
+      `GraphQL Server listening on port ${PORT} at ${graphQLServer.graphqlPath}`
+    );
   });
 
   // Graceful Shutdown
