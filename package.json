@@ -8,6 +8,8 @@
     "start": "npm run build && node dist/index.js",
     "dev": "nodemon src/index.ts",
     "database": "npx prisma studio",
+    "database:migration": "npx prisma migrate dev",
+    "database:migration:reset": "npx prisma migrate reset",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "author": "Alton Bell Smythe <abellsmythe@gmail.com>",
