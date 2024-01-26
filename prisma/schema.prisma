@@ -9,3 +9,165 @@ datasource db {
   provider = "postgresql"
   url      = env("DATABASE_URL")
 }
+
+enum Currency {
+  usd
+}
+
+enum BillingFrequency {
+  annual
+  monthly
+}
+
+enum SupportLevel {
+  basic
+  dedicated
+  priority
+}
+
+enum Analytics {
+  advanced
+  basic
+  none
+}
+
+enum Integrations {
+  custom
+  none
+}
+
+enum CountryCode {
+  arg
+  usa
+}
+
+enum SubscriptionStatus {
+  active
+  canceled
+  paused
+  trial
+}
+
+enum InvoiceStatus {
+  draft
+  open
+  paid
+  uncollectible
+  voided
+}
+
+enum Role {
+  admin
+  su
+  user
+}
+
+enum PaymentStatus {
+  approved
+  pending
+  processing
+  rejected
+}
+
+enum PaymentMethod {
+  bankTransfer
+  credit
+  debit
+}
+
+model User {
+  id         Int       @id @default(autoincrement())
+  Customer   Customer?
+  email      String    @unique
+  first_name String
+  last_name  String
+  password   String
+  avatar     String
+  role       Role
+  createdAt  DateTime  @default(now())
+  updatedAt  DateTime  @updatedAt
+  deletedAt  DateTime?
+}
+
+model Customer {
+  id           Int            @id @default(autoincrement())
+  userId       Int            @unique
+  user         User           @relation(fields: [userId], references: [id])
+  Subscription Subscription[]
+  createdAt    DateTime       @default(now())
+  updatedAt    DateTime       @updatedAt
+  deletedAt    DateTime?
+  Invoice      Invoice?
+  Payment      Payment[]
+}
+
+model Plan {
+  id               Int              @id @default(autoincrement())
+  name             String
+  description      String?
+  price            Float
+  currency         Currency
+  billingFrequency BillingFrequency
+  storage          Int
+  supportLevel     SupportLevel
+  analytics        Analytics
+  integrations     Integrations
+  annualDiscount   Int
+  createdAt        DateTime         @default(now())
+  updatedAt        DateTime         @updatedAt
+  deletedAt        DateTime?
+  Subscription     Subscription?
+}
+
+model Subscription {
+  id                Int                @id @default(autoincrement())
+  customerId        Int
+  customer          Customer           @relation(fields: [customerId], references: [id])
+  status            SubscriptionStatus
+  billingFrequency  BillingFrequency
+  lastPayment       DateTime?
+  nextPayment       DateTime?
+  planId            Int                @unique
+  plan              Plan               @relation(fields: [planId], references: [id])
+  Invoice           Invoice?
+  startsAt          DateTime
+  endsAt            DateTime?
+  createdAt         DateTime           @default(now())
+  updatedAt         DateTime           @updatedAt
+  deletedAt         DateTime?
+}
+
+model Invoice {
+  id                 Int           @id @default(autoincrement())
+  Payment            Payment[]
+  customerId         Int           @unique
+  customer           Customer      @relation(fields: [customerId], references: [id])
+  subscriptionId     Int           @unique
+  subscription       Subscription  @relation(fields: [subscriptionId], references: [id])
+  status             InvoiceStatus
+  amount             Float
+  currency           Currency
+  dueDateAt          DateTime
+  billingAddress     String
+  billingZipCode     String
+  billingCountryCode CountryCode
+  billingFullName    String
+  createdAt          DateTime      @default(now())
+  updatedAt          DateTime      @updatedAt
+  deletedAt          DateTime?
+}
+
+model Payment {
+  id         Int           @id @default(autoincrement())
+  customerId Int
+  customer   Customer      @relation(fields: [customerId], references: [id])
+  invoiceId  Int
+  invoice    Invoice       @relation(fields: [invoiceId], references: [id])
+  status     PaymentStatus
+  amount     Float
+  currency   Currency
+  method     PaymentMethod
+  createdAt  DateTime      @default(now())
+  updatedAt  DateTime      @updatedAt
+  deletedAt  DateTime?
+}
