@@ -289,3 +289,9 @@ You should see something similar
 #### Subscription > Customer > User
 
 ![Subscription Customer User](./subscription-customer-user.png)
+
+## Nice to have! 👀
+
+- Cache 🙌 _(Must probably with Redis)_
+- Test Coverage
+- A way to generate types, just to avoid inconsistencies between the GraphQL schema and the Prisma schema 🤔
