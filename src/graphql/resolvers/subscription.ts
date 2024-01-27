@@ -1,5 +1,7 @@
 import type { GraphQLResolveInfo } from 'graphql';
-import type { Subscription } from '@prisma/client';
+import type { Customer, Plan, Subscription } from '@prisma/client';
+
+import { getSelectFields } from './utils';
 
 import type { Context } from '../context';
 
@@ -8,20 +10,20 @@ export const subscriptionResolver = {
     parent: Subscription,
     _args: unknown,
     context: Context,
-    _info: GraphQLResolveInfo
-  ) =>
-    // There must be a way to extract the selected fields instead of query the whole row
+    info: GraphQLResolveInfo
+  ) => (
     context.prisma.customer.findFirst({
+      select: getSelectFields<Customer>(info, ['user']),
       where: { id: parent.customerId, deletedAt: null },
-    }),
+    })
+  ),
   plan: (
-    parent: Subscription,
-    _args: unknown,
-    context: Context,
-    _info: GraphQLResolveInfo
-  ) =>
-    // There must be a way to extract the selected fields instead of query the whole row
-    context.prisma.plan.findFirst({
-      where: { id: parent.planId, deletedAt: null },
-    }),
+      parent: Subscription,
+      _args: unknown,
+      context: Context,
+      info: GraphQLResolveInfo
+  ) => context.prisma.plan.findFirst({
+    select: getSelectFields<Plan>(info),
+    where: { id: parent.planId, deletedAt: null },
+  }),
 };
