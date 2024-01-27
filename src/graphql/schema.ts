@@ -78,20 +78,13 @@ export const typeDefs = gql`
     email: String!
     firstName: String!
     lastName: String!
-    password: String!
     avatar: String
     role: Role!
-    createdAt: Float!
-    updatedAt: Float!
-    deletedAt: Float
   }
 
   type Customer {
     id: ID!
     user: User!
-    createdAt: Float!
-    updatedAt: Float!
-    deletedAt: Float
   }
 
   type Plan {
@@ -106,9 +99,6 @@ export const typeDefs = gql`
     analytics: Analytics!
     integrations: Integrations!
     annualDiscount: Int!
-    createdAt: Float!
-    updatedAt: Float!
-    deletedAt: Float
   }
 
   type Subscription {
@@ -117,9 +107,6 @@ export const typeDefs = gql`
     plan: Plan!
     startsAt: Float!
     endsAt: Float
-    createdAt: Float!
-    updatedAt: Float!
-    deletedAt: Float
   }
   
   type Invoice {
@@ -134,9 +121,6 @@ export const typeDefs = gql`
     billingZipCode: String!
     billingCountryCode: CountryCode!
     billingFullName: String!
-    createdAt: Float!
-    updatedAt: Float!
-    deletedAt: Float
   }
   
   type Payment {
@@ -147,8 +131,5 @@ export const typeDefs = gql`
     amount: Float!
     currency: Currency!
     method: PaymentMethod!
-    createdAt: Float!
-    updatedAt: Float!
-    deletedAt: Float
   }
 `;
