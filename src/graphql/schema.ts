@@ -88,7 +88,7 @@ export const typeDefs = gql`
 
   type Customer {
     id: ID!
-    userId: User!
+    user: User!
     createdAt: Float!
     updatedAt: Float!
     deletedAt: Float
