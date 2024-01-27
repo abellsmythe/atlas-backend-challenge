@@ -267,3 +267,25 @@ Once you are in the page, remember to update the Sandbox URL to your local envir
 You should see something similar
 
 ![Apollo Explorer](./apollo-explorer.png)
+
+## Evidence 🎉
+
+#### Plans
+
+![Plans](./plans.png)
+
+#### Subscription #1
+
+![Subscription 1](./subscription-1.png)
+
+#### Subscription #2
+
+![Subscription 2](./subscription-2.png)
+
+#### Subscription #3
+
+![Subscription 3](./subscription-3.png)
+
+#### Subscription > Customer > User
+
+![Subscription Customer User](./subscription-customer-user.png)
