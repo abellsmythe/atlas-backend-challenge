@@ -3,7 +3,7 @@ import 'dotenv/config';
 import type { ServerRegistration } from 'apollo-server-express';
 
 import { initApp } from './app';
-import { initGraphQLServer } from './graphql';
+import { initGraphQLServer } from './graphql-server';
 import { initServer } from './server';
 import { terminate } from './terminate';
 
