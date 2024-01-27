@@ -11,5 +11,15 @@ export const queryResolver = {
     // the raw prisma client we could get a service or something similar, that
     // wraps the query logic, just to avoid having that logic here
     context.prisma.plan.findMany({ where: { deletedAt: null } }),
-  subscriptions: (_parent: unknown, _args: unknown) => [],
+  subscriptions: (
+    _parent: unknown,
+    args: { customerId: number },
+    context: Context
+  ) =>
+    // Probably there is a better way to structure this, maybe instead of getting
+    // the raw prisma client we could get a service or something similar, that
+    // wraps the query logic, just to avoid having that logic here
+    context.prisma.subscription.findMany({
+      where: { customerId: args.customerId, deletedAt: null },
+    }),
 };
