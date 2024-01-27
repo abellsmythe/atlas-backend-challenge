@@ -105,6 +105,10 @@ export const typeDefs = gql`
     id: ID!
     customer: Customer!
     plan: Plan!
+    status: SubscriptionStatus
+    billingFrequency: BillingFrequency!
+    lastPayment: Float!
+    nextPayment: Float!
     startsAt: Float!
     endsAt: Float
   }
