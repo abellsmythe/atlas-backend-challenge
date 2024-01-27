@@ -29,8 +29,8 @@ In general terms all the database tables will have some files
 #### User
 - `id` integer pk increments
 - `email` string unique
-- `first_name` string
-- `last_name` string
+- `firstName` string
+- `lastName` string
 - `password` string
 - `avatar` string
 - `role` enum
@@ -168,12 +168,12 @@ docker compose exec app npm run database:migration
 you should see something similar to 
 
 ```
-Applying migration `20240126201343_init/`
+Applying migration `20240127175327_init//`
 
 The following migration(s) have been applied:
 
 migrations/
-  └─ 20240126201343_init/
+  └─ 20240127175327_init//
     └─ migration.sql
 
 Your database is now in sync with your schema.

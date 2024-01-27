@@ -76,17 +76,17 @@ enum PaymentMethod {
 }
 
 model User {
-  id         Int       @id @default(autoincrement())
-  Customer   Customer?
-  email      String    @unique
-  first_name String
-  last_name  String
-  password   String
-  avatar     String
-  role       Role
-  createdAt  DateTime  @default(now())
-  updatedAt  DateTime  @updatedAt
-  deletedAt  DateTime?
+  id        Int       @id @default(autoincrement())
+  Customer  Customer?
+  email     String    @unique
+  firstName String
+  lastName  String
+  password  String
+  avatar    String
+  role      Role
+  createdAt DateTime  @default(now())
+  updatedAt DateTime  @updatedAt
+  deletedAt DateTime?
 
   @@index([email, deletedAt])
 }
@@ -126,21 +126,21 @@ model Plan {
 }
 
 model Subscription {
-  id                Int                @id @default(autoincrement())
-  customerId        Int
-  customer          Customer           @relation(fields: [customerId], references: [id])
-  status            SubscriptionStatus
-  billingFrequency  BillingFrequency
-  lastPayment       DateTime?
-  nextPayment       DateTime?
-  planId            Int                @unique
-  plan              Plan               @relation(fields: [planId], references: [id])
-  Invoice           Invoice?
-  startsAt          DateTime
-  endsAt            DateTime?
-  createdAt         DateTime           @default(now())
-  updatedAt         DateTime           @updatedAt
-  deletedAt         DateTime?
+  id               Int                @id @default(autoincrement())
+  customerId       Int
+  customer         Customer           @relation(fields: [customerId], references: [id])
+  status           SubscriptionStatus
+  billingFrequency BillingFrequency
+  lastPayment      DateTime?
+  nextPayment      DateTime?
+  planId           Int                @unique
+  plan             Plan               @relation(fields: [planId], references: [id])
+  Invoice          Invoice?
+  startsAt         DateTime
+  endsAt           DateTime?
+  createdAt        DateTime           @default(now())
+  updatedAt        DateTime           @updatedAt
+  deletedAt        DateTime?
 
   @@index([customerId, deletedAt])
 }

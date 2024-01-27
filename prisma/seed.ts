@@ -77,8 +77,8 @@ const loadUser = async (
     create: {
       id,
       email,
-      first_name: firstName,
-      last_name: lastName,
+      firstName,
+      lastName,
       password:
         '819f7644f7883384ffdf2522826d38afeafb4338374e71cdeff315e8831e0c6f',
       avatar: 'https://i.pravatar.cc/120',

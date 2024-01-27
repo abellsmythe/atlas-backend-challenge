@@ -35,8 +35,8 @@ CREATE TYPE "PaymentMethod" AS ENUM ('bankTransfer', 'credit', 'debit');
 CREATE TABLE "User" (
     "id" SERIAL NOT NULL,
     "email" TEXT NOT NULL,
-    "first_name" TEXT NOT NULL,
-    "last_name" TEXT NOT NULL,
+    "firstName" TEXT NOT NULL,
+    "lastName" TEXT NOT NULL,
     "password" TEXT NOT NULL,
     "avatar" TEXT NOT NULL,
     "role" "Role" NOT NULL,
@@ -136,16 +136,34 @@ CREATE TABLE "Payment" (
 CREATE UNIQUE INDEX "User_email_key" ON "User"("email");
 
 -- CreateIndex
+CREATE INDEX "User_email_deletedAt_idx" ON "User"("email", "deletedAt");
+
+-- CreateIndex
 CREATE UNIQUE INDEX "Customer_userId_key" ON "Customer"("userId");
 
 -- CreateIndex
+CREATE INDEX "Customer_userId_deletedAt_idx" ON "Customer"("userId", "deletedAt");
+
+-- CreateIndex
+CREATE INDEX "Plan_deletedAt_idx" ON "Plan"("deletedAt");
+
+-- CreateIndex
 CREATE UNIQUE INDEX "Subscription_planId_key" ON "Subscription"("planId");
+
+-- CreateIndex
+CREATE INDEX "Subscription_customerId_deletedAt_idx" ON "Subscription"("customerId", "deletedAt");
 
 -- CreateIndex
 CREATE UNIQUE INDEX "Invoice_customerId_key" ON "Invoice"("customerId");
 
 -- CreateIndex
 CREATE UNIQUE INDEX "Invoice_subscriptionId_key" ON "Invoice"("subscriptionId");
+
+-- CreateIndex
+CREATE INDEX "Invoice_customerId_deletedAt_idx" ON "Invoice"("customerId", "deletedAt");
+
+-- CreateIndex
+CREATE INDEX "Payment_customerId_deletedAt_idx" ON "Payment"("customerId", "deletedAt");
 
 -- AddForeignKey
 ALTER TABLE "Customer" ADD CONSTRAINT "Customer_userId_fkey" FOREIGN KEY ("userId") REFERENCES "User"("id") ON DELETE RESTRICT ON UPDATE CASCADE;
